@@ -43,8 +43,18 @@ alias sdcv='sdcv -n'
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
     url=$(git remote show -n origin 2> /dev/null | sed -n 's/Fetch URL:\ //p')
-    [ -n "${branch}" ] && [ -n "${url}" ] && echo "$url->$branch"   
+    [ -n "${branch}" ] && [ -n "${url}" ] && echo "$url->$branch"
 } 
+
+function git_url {
+    url=$(git remote show -n origin 2> /dev/null | sed -n 's/Fetch URL:\ //p')
+    [ -n "${url}" ] && echo "$url"
+}
+
+function git_branch {
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+    [ -n "${branch}" ] && echo "$branch"
+}
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$debian_version" in
@@ -54,7 +64,7 @@ case "$debian_version" in
     ;;
 *)
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='<\[\033[01;32m\]\u@\h-${debian_version}\[\033[00m\]:\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]/\n\T\$>'
+    PS1='<\[\033[01;32m\]\u@\h-${debian_version}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
     ;;
 esac
 
