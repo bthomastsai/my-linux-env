@@ -20,3 +20,5 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+[ -d "$HOME/.vim/bundle/gj/bin" ] && PATH="$PATH:$HOME/.vim/bundle/gj/bin"
