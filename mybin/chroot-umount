@@ -1,0 +1,35 @@
+#!/bin/bash
+
+chroot_os="$1"
+
+function umount_it()
+{
+	mount_p="$1"
+
+	if [ "$mount_p" != "" ]; then
+		sudo umount $mount_p
+	fi
+}
+
+if [ "$chroot_os" == "" ]; then
+	printf "\nUsage: $0 <schroot session name | all>\n\nschroot session name:\n---------------------\n"
+	schroot --list | awk -F: '{print $2}'
+	echo
+	exit
+fi
+
+if [ "$chroot_os" == "all" ]; then
+	umount_it "$(mount | grep "chroot-env/rootfs" | grep "/dev/" | awk '{print $3}')"
+	umount_it "$(mount | grep "chroot-env/rootfs" | awk '{print $3}')"
+	exit
+fi
+
+mount_base_dir="rootfs/rootfs-$chroot_os"
+
+for p in /proc /dev/pts /dev; do
+	umount_it "$(mount | grep "$mount_base_dir" | grep "$p type" | awk '{print $3}')"
+done
+
+umount_it "$(mount | grep $mount_base_dir | grep "bind" | awk '{print $3}')"
+umount_it "$(mount | grep $mount_base_dir | awk '{print $3}')"
+

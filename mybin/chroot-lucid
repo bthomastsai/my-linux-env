@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#chroot2 android "/aosp-mirror /var/run/dbus"
+chroot2 lucid_i386 "/var/run/dbus"
+

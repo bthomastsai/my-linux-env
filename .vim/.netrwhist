@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/home/thomas/projects/sdn/ofdpa-esp-9110/packages/ofdpa-1.0.0.0-odp/ofagent'
 let g:netrw_dirhist_2='/home/thomas/projects/sdn/ofdpa-esp-9110/packages/ofdpa-1.0.0.0-odp/ofagent/ofdpadriver'
+let g:netrw_dirhist_3='/home/thomas/projects/9212/esp-9212_sdn/config/package-lists'

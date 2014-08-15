@@ -1,0 +1,37 @@
+#!/bin/bash
+
+schroot_session="$1"
+extra_bind_mount_points="$2"
+
+if [ "$schroot_session" == "" ]; then
+	printf "\nUsage: $(basename $0) <schroot session name> [extra bind mount points]\n\nschroot session name:\n---------------------\n"
+	schroot --list | awk -F: '{print $2}'
+	echo ""
+	exit
+fi
+
+base_dir="$(which $0)"
+
+if echo $base_dir | grep -q ^./; then
+	base_dir="$(echo $base_dir | awk -F./ '{print $2}')"
+fi
+
+if ! echo $base_dir | grep -q ^/; then
+	base_dir="$PWD/$base_dir"
+fi
+
+base_dir="$(dirname $(dirname $base_dir))"
+rootfs_path="$base_dir/rootfs/rootfs-$schroot_session"
+mount_pt_base_dir="$base_dir/mount_pt"
+
+if [ ! -d "$rootfs_path" ]; then
+	printf "\nNo such folder '$rootfs_path' !!\n\n"
+	exit
+fi
+
+# source env.sh and pass the absolute path of rootfs to env.sh
+$base_dir/bin/chroot-mount "$rootfs_path" "$extra_bind_mount_points"
+
+#exec sudo chroot $ubuntu_rootfs /bin/bash
+#exec sudo chroot --userspec=${chroot_user}:${chroot_user} $ubuntu_rootfs /bin/bash
+exec schroot -c $schroot_session -u $(whoami) -d /home/${CHROOT_USER}

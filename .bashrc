@@ -30,6 +30,7 @@ eval "`dircolors`"
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias gitsu='git status --untracked-files=no'
+alias grep='grep --color=auto'
 # alias l='ls $LS_OPTIONS -lA'
 #
 # Some more alias to avoid making mistakes:
@@ -39,6 +40,7 @@ alias mv='mv -i'
 alias svnvimdiff='svn diff --diff-cmd $HOME/bin/diffwrap.sh'
 alias cgrep='grep --include="*.[chsS]"'
 alias sdcv='sdcv -n'
+alias svnurl="svn info | awk '/^URL/ {print \$2}'"
 
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
@@ -130,8 +132,8 @@ fi
 export SDCV_PAGER=/usr/bin/less
 export EDITOR=vim
 #set -o vi
-bind '"\x1b\x5b\x41":history-search-backward'
-bind '"\x1b\x5b\x42":history-search-forward'
+#bind '"\x1b\x5b\x41":history-search-backward'
+#bind '"\x1b\x5b\x42":history-search-forward'
 
 #
 # git auto complete 

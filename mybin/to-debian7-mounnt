@@ -1,0 +1,7 @@
+#!/bin/sh
+
+DEBIAN7_ROOT=/home/thomas/chroot_env/debian7
+sudo mount -o bind /proc ${DEBIAN7_ROOT}/proc
+sudo mount -o bind /home/thomas ${DEBIAN7_ROOT}/home/thomas
+sudo mount -o bind /home/thomas/projects/sdn ${DEBIAN7_ROOT}/home/thomas/projects/sdn
+#schroot -c squeeze -u `whoami`
