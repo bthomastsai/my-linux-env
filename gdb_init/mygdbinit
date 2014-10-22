@@ -1,0 +1,4 @@
+set remotebaud 115200
+symbol-file vmlinux
+target remote /dev/ttyS0
+set output-radix 16
