@@ -23,6 +23,7 @@ if [ -n "$1" ]; then
             -o -name "*.mm" \
             > $CSCOPE_FILE
 	cscope -bk -i $CSCOPE_FILE -f $OUTPUT_FILE
+    rm -f $CSCOPE_FILE
 ##	ctags -R --exclude=.svn
 else
 	echo "Please key-in path of project"
