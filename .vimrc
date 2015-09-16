@@ -13,7 +13,7 @@ Plugin 'gmarik/Vundle.vim'
  " The following are examples of different formats supported.
  " Keep Plugin commands between vundle#begin/end.
  " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
  " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
  " Git plugin not hosted on GitHub
@@ -23,8 +23,9 @@ Plugin 'tpope/vim-fugitive'
  " The sparkup vim script is in a subdirectory of this repo called vim.
  " Pass the path to set the runtimepath properly.
 " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'fcamel/gj'
+Plugin 'https://github.com/rking/ag.vim.git'
 Plugin 'mileszs/ack.vim'
-Plugin 'fcamel/gj'
 
  " All of your Plugins must be added before the following line
  call vundle#end()            " required
@@ -120,6 +121,7 @@ set showmatch
 "set smartindent
 set modeline
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set fileformats=dos,unix " support all three, in this order
 
 syntax on
 
@@ -204,8 +206,10 @@ set diffopt+=iwhite
 "map <F8> :TlistToggle<CR>
 
 " Thomas Tsai's option
+set clipboard=unnamed
 set nowrap
 set path=./,**,
+
 
 function! DeNoise()
        execute 'v/eventq\|Elapsed\|set frequency\|tuner_callback\|PERFORMANCE_TEST\|CA Demux Data\|STVID.*EVT\|CA Desc Set Pid\|dscSet1LevelProtectedKeys] xDscChannelId\|CA Filter\|T1RawExchange nRet\|CAK\|*L1*>/d'
@@ -230,6 +234,20 @@ set tags+=/Users/bthomastsai/.vim/tags
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 let g:SuperTabDefaultCompletionType = 'context'
 
+let g:ackprg = "/Users/smpuser/bin/ack"
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+"
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+   " Use ag in CtrlP for listing files.
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
+
 function MultiScroll(OnOff)
     if a:OnOff == 1
         noremap j 5j
@@ -243,3 +261,8 @@ endfunction
 map \j :call MultiScroll(1)<RETURN>
 map \k :call MultiScroll(0)<RETURN>
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+set runtimepath^=~/.vim/bundle/ag
