@@ -25,14 +25,11 @@ if [ -f /etc/debian_version ]; then
     debian_version=$(cat /etc/debian_version)
 fi
 # You may uncomment the following lines if you want `ls' to be colorized:
-export LS_OPTIONS='--color=auto'
-eval "`dircolors`"
-alias ls='ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -l'
+#export LS_OPTIONS='--color=auto'
+# eval "`dircolors`"
+alias ls='ls -Gp'
 alias gitsu='git status --untracked-files=no'
 alias grep='grep --color=auto'
-# alias l='ls $LS_OPTIONS -lA'
-#
 # Some more alias to avoid making mistakes:
 alias rm='rm -i'
 # alias cp='cp -i'
@@ -41,6 +38,7 @@ alias svnvimdiff='svn diff --diff-cmd $HOME/bin/diffwrap.sh'
 alias cgrep='grep --include="*.[chsS]"'
 alias sdcv='sdcv -n'
 alias svnurl="svn info | awk '/^URL/ {print \$2}'"
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
@@ -91,37 +89,37 @@ esac
 #    . ~/.bash_aliases
 #fi
 
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-    #alias dir='ls --color=auto --format=vertical'
-    #alias vdir='ls --color=auto --format=long'
-fi
+## enable color support of ls and also add handy aliases
+#if [ "$TERM" != "dumb" ]; then
+#    eval "`dircolors -b`"
+#    #alias ls='ls --color=auto'
+#    #alias dir='ls --color=auto --format=vertical'
+#    #alias vdir='ls --color=auto --format=long'
+#fi
 
-# 
-# SSH client setting
+## 
+## SSH client setting
+##
+#SSH_ENV=$HOME/.ssh/environment
+## start the ssh-agent
+#function start_agent {
+#    echo "Initializing new SSH agent..."
+#    # spawn ssh-agent
+#    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+#    echo succeeded
+#    chmod 600 "${SSH_ENV}"
+#    . "${SSH_ENV}" > /dev/null
+#     /usr/bin/ssh-add
+#}
 #
-SSH_ENV=$HOME/.ssh/environment
-# start the ssh-agent
-function start_agent {
-    echo "Initializing new SSH agent..."
-    # spawn ssh-agent
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-     /usr/bin/ssh-add
-}
-
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-    }
-else
-    start_agent;
-fi
+#if [ -f "${SSH_ENV}" ]; then
+#    . "${SSH_ENV}" > /dev/null
+#    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+#    start_agent;
+#    }
+#else
+#    start_agent;
+#fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -134,6 +132,9 @@ export EDITOR=vim
 #set -o vi
 #bind '"\x1b\x5b\x41":history-search-backward'
 #bind '"\x1b\x5b\x42":history-search-forward'
+
+export LC_CTYPE=C 
+export LANG=C
 
 #
 # git auto complete 
