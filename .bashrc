@@ -63,7 +63,7 @@ case "$debian_version" in
     ;;
 *)
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='<\[\033[01;32m\]\u@\h-${debian_version}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
+    PS1='<\[\033[01;32m\]\u@\h\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
     ;;
 esac
 
