@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -p /home/thomas/projects/9212
+mount -t nfs -o nolock 172.23.4.32:/home/thomas/projects/9212 /home/thomas/projects/9212/
+mount --bind /home/thomas/projects/9212/esp-9212_sdn/src/ofdpa/ofdpa-1.0.0.0-odp/scripts /usr/local/bin

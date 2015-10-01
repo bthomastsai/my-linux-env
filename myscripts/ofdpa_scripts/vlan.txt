@@ -1,0 +1,34 @@
+/*
+ *  (optional) Enable debug message for utility.
+ */
+cd /home/user/ofdpa/client
+sudo ./client_debugcomp -c 1
+sudo ./client_debugcomp -c 2
+sudo ./client_debugcomp -c 3
+sudo ./client_debugcomp -c 4
+sudo ./client_debugcomp -c 5
+sudo ./client_debuglvl 3
+
+/*
+ *  Subscriber port 17 and 31 allow to receive untagged packet.
+ *  PVID of port 17 is 200.
+ *  PVID of port 31 is 300.
+ */ 
+sudo ./client_vlan -i 17 -v 0x10c8 -m 0x1fff -n 0xc8
+sudo ./client_vlan -i 17 -v 0x0 -m 0x0fff -n 0xc8
+
+sudo ./client_vlan -i 31 -v 0x112c -m 0x1fff -n 0x12c
+sudo ./client_vlan -i 31 -v 0x0 -m 0x0fff -n 0x12c
+
+sudo ./client_flowtable_dump 10
+sudo ./client_drivshell "vlan show 200"
+sudo ./client_drivshell "vlan show 300"
+
+/*
+ *  Uplink port does not allow to receive untagged packet.
+ *  Uplink is egress port of VID 200 and 300.
+ */
+sudo ./client_vlan -i 1 -v 0x0 -m 0x0fff -d
+sudo ./client_vlan -i 1 -v 0x10c8 -m 0x1fff -n 0xc8
+sudo ./client_vlan -i 1 -v 0x112c -m 0x1fff -n 0x12c
+sudo ./client_flowtable_dump 10

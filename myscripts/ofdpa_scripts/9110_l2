@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#echo "==> Set vlan table"
+#client_vlan -i 16 -v 0x10c8 -m 0x1fff
+#client_vlan -i 28 -v 0x10c8 -m 0x1fff
+
+echo "==> Create l2 interface group"
+client_group --groupid=0xc80016
+client_group --groupid=0xc80016 --l2intfbktid=0 --outport=22 --popvlan=0
+client_group --groupid=0xc8001a
+client_group --groupid=0xc8001a --l2intfbktid=0 --outport=26 --popvlan=0
+
+#echo "==> Set Termination MAC table"
+#client_termmac --intf=0 --vlan=200 --dstmac=00:01:02:03:04:05
+
+client_bridging --group=0xc8001a --dstmac=00:01:02:03:04:05 --vlan=200 -p
+

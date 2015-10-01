@@ -1,0 +1,20 @@
+#!/bin/bash
+
+fp init
+fp qset add Stage
+fp qset add StageIngress
+##fp qset add inports
+fp qset add srcip
+fp group create 0 1
+fp entry create 1 1
+fp stat create group=1 type0=Packets
+fp qual 1 clear
+##fp qual 1 inports 0x7fffffffffffe 0x7fffffffffffe 
+fp qual 1 srcip 10.0.8.15 255.255.255.255
+fp action add 1 redirectport 0 2
+fp stat attach entry=1
+fp entry install 1
+
+#client_group --groupid=0x10002
+#client_group --groupid=0x10002 --l2intfbktid=0 --outport=2 --popvlan=1
+#client_group --groupid=0x10002 --groupbuckettable list

@@ -1,0 +1,125 @@
+root@debian:~/ofdpa# ./client_drivshell "FieldProcess show"
+Calling ofdpaBcmCommand rpc with command = "FieldProcess show ".
+FP:     unit 0:PIPELINE STAGE INGRESS
+FP:           :tcam_sz=4096(0x1000), tcam_slices=12, tcam_ext_numb=0,
+PIPELINE STAGE EGRESS
+FP:           :tcam_sz=1024(0x400), tcam_slices=4, tcam_ext_numb=0,
+PIPELINE STAGE LOOKUP
+FP:           :tcam_sz=1024(0x400), tcam_slices=4, tcam_ext_numb=0,
+GID          2: gid=0x2, mode=Double, stage=Ingress lookup=Enabled, pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}
+qset={SrcIp6, DstIp6, SrcMac, DstMac, InPort, OuterVlanId, L4SrcPort, L4DstPort, EtherType, IpProtocol, DSCP, Stage, StageIngress, Vpn},
+selcodes[0]=
+{
+FPF1=14
+FPF2=2
+FPF3=14
+Intraslice=Primary slice.
+{
+SrcIp6->Stage->InPort->StageIngress->SrcMac->DstMac},
+selcodes[1]=
+{
+FPF1=8
+FPF2=3
+FPF3=5
+ForwardingFieldSelect=2
+Intraslice=Primary slice.
+{
+DstIp6->L4SrcPort->L4DstPort->Vpn->DSCP->IpProtocol->EtherType->OuterVlanId},
+
+slice_pri=                    {slice_number=2, Entry count=512(0x200),pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}},
+slice_sec=                    {slice_number=3, Entry count=512(0x200),pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}},
+group_status={prio_min=0, prio_max=2147483647, entries_total=1536, entries_free=1536,
+counters_total=2048, counters_free=2048, meters_total=4096, meters_free=4096}
+GID          1: gid=0x1, mode=Double, stage=Ingress lookup=Enabled, pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}
+qset={SrcMac, DstMac, SrcIp, DstIp, InPort, OuterVlanId, OuterVlanPri, L4SrcPort, L4DstPort, EtherType, IpProtocol, DSCP, Stage, StageIngress, IcmpTypeCode, Vpn},
+selcodes[0]=
+{
+FPF1=14
+FPF2=0
+FPF3=14
+Intraslice=Primary slice.
+{
+StageIngress->InPort->Stage->IcmpTypeCode->SrcIp->DstIp->SrcMac->DstMac->L4SrcPort->L4DstPort->DSCP},
+selcodes[1]=
+{
+FPF1=0
+FPF2=7
+ForwardingFieldSelect=2
+Intraslice=Primary slice.
+{
+Vpn->EtherType->IpProtocol->OuterVlanPri->OuterVlanId},
+
+slice_pri=                    {slice_number=0, Entry count=512(0x200),pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}},
+slice_sec=                    {slice_number=1, Entry count=512(0x200),pbmp={0x000000000000000000000000000000000000000000000000007fffffffffffff}},
+group_status={prio_min=0, prio_max=2147483647, entries_total=1536, entries_free=1533,
+counters_total=2048, counters_free=2045, meters_total=4096, meters_free=4096}
+EID 0x00000001: gid=0x1,
+slice=0, slice_idx=0x2, part =0 prio=0, flags=0x10202, Installed, Enabled
+tcam: color_indep=0,
+StageIngress
+Stage
+slice=1, slice_idx=0x2, part =1 prio=0, flags=0x10204, Installed, Enabled
+tcam: color_indep=0,
+EtherType
+Offset: 24 Width: 16
+DATA=0x00000000
+MASK=0x0000ffff
+action={act=CopyToCpu, param0=0(0), param1=0(0), param2=0(0), param3=0(0)}
+policer=
+statistics={stat id 1  slice = 0 idx=0 entries=1}{Bytes}{Packets}
+EID 0x00000002: gid=0x1,
+slice=0, slice_idx=0, part =0 prio=0xa, flags=0x10602, Installed, Enabled
+tcam: color_indep=1024,
+StageIngress
+InPort
+DATA=0x0000000000000000000000000000000000000000000000000000000002000000
+MASK=0x000000000000000000000000000000000000000000000000007fffffffffffff
+Stage
+SrcMac
+Offset: 241 Width: 48
+DATA=0x00000000 00001111
+MASK=0x0000ffff ffffffff
+DstMac
+Offset: 192 Width: 48
+DATA=0x00000000 00003333
+MASK=0x0000ffff ffffffff
+slice=1, slice_idx=0, part =1 prio=0xa, flags=0x10204, Installed, Enabled
+tcam: color_indep=0,
+EtherType
+Offset: 24 Width: 16
+DATA=0x00000800
+MASK=0x0000ffff
+action={act=RedirectPort, param0=0(0), param1=15(0xf), param2=0(0), param3=0(0)}
+policer=
+statistics={stat id 2  slice = 0 idx=0 entries=1}{Bytes}{Packets}
+EID 0x00000003: gid=0x1,
+slice=0, slice_idx=0x1, part =0 prio=0xa, flags=0x10602, Installed, Enabled
+tcam: color_indep=1024,
+StageIngress
+InPort
+DATA=0x0000000000000000000000000000000000000000000000000000000200000000
+MASK=0x000000000000000000000000000000000000000000000000007fffffffffffff
+Stage
+SrcMac
+Offset: 241 Width: 48
+DATA=0x00000000 00005555
+MASK=0x0000ffff ffffffff
+DstMac
+Offset: 192 Width: 48
+DATA=0x00000000 00006666
+MASK=0x0000ffff ffffffff
+slice=1, slice_idx=0x1, part =1 prio=0xa, flags=0x10204, Installed, Enabled
+tcam: color_indep=0,
+EtherType
+Offset: 24 Width: 16
+DATA=0x00000800
+MASK=0x0000ffff
+OuterVlanId
+Offset: 8 Width: 12
+DATA=0x000000c8
+MASK=0x00000fff
+action={act=RedirectPort, param0=0(0), param1=15(0xf), param2=0(0), param3=0(0)}
+policer=
+statistics={stat id 3  slice = 0 idx=1 entries=1}{Bytes}{Packets}
+
+Returned from ofdpaBcmCommand rpc with rc = 0.

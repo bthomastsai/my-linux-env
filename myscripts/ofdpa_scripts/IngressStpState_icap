@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#
+# Create ingress stage
+#
+fp init
+fp qset add Stage
+fp qset add StageIngress
+fp qset add IngressStpState
+fp qset add InPorts
+fp group create 0 1
+fp entry create 1 1
+fp stat create group=1 type0=Packets
+fp qual 1 clear
+fp qual 1 IngressStpState 1 255
+fp action add 1 drop
+fp stat attach entry=1
+fp entry install 1
+
+# Copy to CPU, to controller
+fp entry create 1 2
+fp stat create group=1 type0=Packets
+fp qual 2 clear
+fp qual 2 InPorts 0x7ffffffffffff 0x7ffffffffffff
+fp action add 2 CopyToCpu 1 170
+fp stat attach entry=2
+fp entry install 2
+

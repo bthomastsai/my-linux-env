@@ -1,0 +1,16 @@
+/*
+ *  Create ACL to do source MAC filter on subscriber ports.
+ */
+sudo ./client_acl --priority=10 --intf=1  --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=200 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x00c80011
+sudo ./client_acl --priority=10 --intf=1  --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=300 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x012c001f
+sudo ./client_acl --priority=10 --intf=17 --srcmac=00:17:17:00:00:00 --srcmacmask=ff:ff:ff:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=200 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x00c80001
+sudo ./client_acl --priority=10 --intf=31 --srcmac=00:31:31:00:00:00 --srcmacmask=ff:ff:ff:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=300 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x012c0001
+sudo ./client_flowtable_dump 60
+
+sudo ./client_acl --priority=5  --intf=17 --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=0 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --discard
+sudo ./client_acl --priority=5  --intf=31 --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=0 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --discard
+sudo ./client_flowtable_dump 60
+
+client_group --groupid=0x00cb0002 --l2intfbktid=0 --outport=2 --popvlan=0
+client_acl --priority=10 --intf=all  --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=203 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x00cb0002
+client_acl --priority=10 --intf=1  --srcmac=00:00:00:00:00:00 --dstmac=00:00:00:00:00:00 --vlan=100 --srcip4=0.0.0.0 --dstip4=0.0.0.0 --proto=0 --srcport=0 --dstport=0 --setgroup=0x00640002

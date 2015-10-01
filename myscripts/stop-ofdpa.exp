@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+set timeout 60
+spawn telnet 172.23.4.71
+expect "login: "
+send  "user\r"
+expect -re "Password: ";
+send [format "%s\r" live]
+expect -re "user@debian:~"
+send "sudo /etc/init.d/ofdpa stop\n\r"
+expect -re "user@debian:~"
+
+exit

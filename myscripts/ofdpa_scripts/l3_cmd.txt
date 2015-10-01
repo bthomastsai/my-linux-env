@@ -1,0 +1,154 @@
+ Usage (L3): Usages:
+ 	  l3 init    - Init L3 function.
+ 	  l3 detach  - Detach L3 function.
+ 
+ 	  l3 intf add <Vlan>=<val> <Mac>=<val> [<INtf>=<val>] [<VRF>=<val>]
+ 	                   [<Mtu>=<val>] [<Group>=<val>]
+ 	                   - Add an entry into l3 interface table
+ 	  l3 intf destroy <INtf>=<val>
+ 	                   - Destroy an entry in l3 interface table
+ 	  l3 intf clear    - Destroy all intf
+ 	  l3 intf show     - [<INtf>=<val>]
+ 	                     Display all Intfs or a single one
+ 
+ 	  l3 egress add <Mac>=<val> <INtf>=<val> [<Trunk>=<val>]
+ 	                  <Port>=<val> [<MOdule>=<val>] [<L2tocpu>=<val>]
+ 	                  [<MplsLabel>=<val>] [<Drop>=<val>] [<CopyToCpu>=<val>]
+ 	                  - Create egress object entry
+ 	  l3 egress update <EgrId>=<val> <Mac>=<val> <INtf>=<val>
+ 	                  [<Trunk>=<val>] <Port>=<val> [<MOdule>=<val>]
+ 	                  [<L2tocpu>=<val>] [<MplsLabel>=<val>]
+ 	                  - Update egress object entry
+ 	  l3 egress delete <entry>
+ 	                  - Delete egress object entry
+ 	  l3 egress show [entry]
+ 	                  -Show egress object entry
+ 	  l3 egress find <Mac>=<val> <INtf>=<val> [<Trunk>=<val>]
+ 	                  <Port>=<val> [<MOdule>=<val>] [<L2tocpu>=<val>]
+ 	                  [<MplsLabel>=<val>]
+ 	                  - Find egress object entry
+ 	  l3 multipath add <Size>=<val> [<INtf0>=<val>] [<INtf1>=<val>]
+ 	                  [<INtf2>=<val>] [<INtf3>=<val>]
+ 	                  - Create multipath egress object entry
+ 	  l3 multipath maxadd <Size>=<val> [<MaxGrpSize>=<val>] [<INtf0>=<val>] [<INtf1>=<val>]
+ 	                  [<INtf2>=<val>] [<INtf3>=<val>]
+ 	                  - Create multipath egress object entry(dynamic grp size)
+ 	  l3 multipath update <EgrId>=<val> <Size>=<val> [<INtf0>=<val>]
+ 	                  [<INtf1>=<val>] [<INtf2>=<val>] [<INtf3>=<val>]
+ 	                  - Update multipath egress object entry
+ 	  l3 multipath delete <entry>
+ 	                  - Delete multipath egress object entry
+ 	  l3 multipath show [entry]
+ 	                  -Show multipath egress object entry
+ 	  l3 multipath insert <EgrId>=<val> <Intf>=<val>
+ 	                  -Add interface to multipath egress object entry
+ 	  l3 multipath remove <EgrId>=<val> <Intf>
+ 	                  -Remove interface from multipath egress object entry
+ 	  l3 multipath find <Size>=<val> [<INtf0>=<val>] [<INtf1>=<val>]
+ 	                  [<INtf2>=<val>] [<INtf3>=<val>]
+ 	                  - Find multipath egress object entry
+ 	  l3 l3table add <VRF>=<val> <IP>=<val> <Mac>=<val> <INtf>=<val>
+ 	       [<Hit>=<val>] [<Trunk>=<val>] [MOdule=<val>] <Port>=<val>
+ 	       <PRI>=<val> <RPE>=<val> [<Untag>=<val>] [<L2tocpu>=<val>]
+ 	       [<HOST_AS_ROUTE>=<val>] [Replace=<bool>] <LookupClass>=<val>
+ 	  l3 l3table destroy <VRF>=<val> <IP>=<val>
+ 	                   - Destroy an entry in l3 table
+ 	  l3 l3table clear - Destroy all l3 table
+ 	  l3 l3table show  - Display all l3 table or a single one
+ 	  l3 l3table age   - Age L3 table
+ 	  l3 l3table sanity <Start=<index> End=<index>
+ 	                   - Check l3x tables for (san)ity in the given range
+ 	  l3 l3table hash <VRF>=<val> <IP>=<val> [<SrcIP>=<val>] [<SipKey>=<val>]
+ 	                    [<VID>=<val>] [<Hash>=<hash_type>]
+ 	                   - Calculate l3 hash index
+ 	  l3 l3table ip6hash <IP>=<val> [<SrcIP>=<val>] [<SipKey>=<val>]
+ 	                    [<VID>=<val>] [<Hash>=<hash_type>]
+ 	                   - Calculate l3 hash index for IPv6 entry
+ 	  l3 l3table untag  - Recalculate untagged bits for L3
+ 
+ 	  l3 l3table conflict <VRF>=<val> <DIP>=<val> <DIP6>=<val>
+ 	                     <SIP>=<val> <SIP6>=<val> <IP6>=<val> <IPMC>=<val>
+ 	                     <VLAN>=<val> 
+ 	                     - Get conflicting l3 entries.
+ 
+ 	  l3 defip add <VRF>=<val> <IP>=<val> <MaSk>=<val> <Mac>=<val>
+ 	       <INtf>=<val> <Gateway>=<next hop Ip address> <Port>=<val>
+ 	       [MOdule=<val>] [<Untag>=<val>] [<Local>=<val>] [<ECMP>=<1/0>]
+ 	       [<Hit>=<val>] [<VLAN>=<val>](BCM5695 def route 0.0.0.0/0 only)
+ 	       [<DstDiscard>=<val>] <PRI>=<val> <RPE>=<val> [Replace=<bool>]
+ 	       [<MplsLabel>=<val>] <TunnelOpt>=<val> <LookupClass>=<val>
+ 	                   - Add an IPv4 entry into DEFIP table
+ 	  l3 defip destroy <VRF>=<val> <IP>=<val> <MaSk>=<val>
+ 	       [<ECMP=<1/0> <Mac>=<val> <Gateway>=<next hop Ip address>
+ 	        <INtf>=<val> <Port>=<val> [MOdule=<val>]
+ 	       [<VLAN>=<val>](BCM5695 def route 0.0.0.0/0 only)
+ 	                   - Destroy an IPv4 entry in def IP table
+ 	  l3 defip clear   - Destroy all IPv4 DEFIP table
+ 	  l3 defip age     - Age DEFIP(LPM) table(XGS Switch only)
+ 	  l3 defip show    - Display all IPv4 DEFIP table or a single one
+ 	  l3 defip ecmp <max>=<val> - Set MAX number of ECMP paths allowed
+ 	  l3 defip ecmphash <DIP>=<val> <SIP>=<val> <SIP6>=val <DIP6>=val
+ 	                    <COUNT>=<val> <IP6>=val  <L4_SRC_PORT>=val
+ 	                    <L4_DST_PORT>=val [<EHash>=<ECMP hash Sel>] 
+ 	                    [<Hash>=<L3 hash type>]
+ 	                   - Calculate ECMP hash index (COUNT is zero based)
+ 	  l3 defip test    - Run L3 defip test
+ 	  l3 defip check cmp/hw/sw - Check L3 defip table with hw or for empty
+ 
+ 	  l3 ip6host add <VRF>=<val> <IP>=<val> <Mac>=<val> [MOdule=<val>]
+ 	       <Port>=<val> [<Trunk>=<val>] <INtf>=<val> [<Hit>=<val>]
+ 	       <PRI>=<val> <RPE>=<val> [<Replace>=<bool>]
+ 	       [<HOST_AS_ROUTE>=<bool>] <LookupClass>=<val>
+ 	                   - Add/Update an IPv6 entry
+ 	  l3 ip6host delete <VRF>=<val> <IP>=<val>
+ 	                   - Delete an IPv6 entry
+ 	  l3 ip6host clear - Delete all IPv6 host entries
+ 	  l3 ip6host age   - Age IPv6 host entries
+ 	  l3 ip6host show  - Show all IPv6 host entries
+ 
+ 	  l3 ip6route add  <VRF>=<val> <IP>=<val> <MaskLen>=<val> <Mac>=<val>
+ 	                   [MOdule=<val>] <Port>=<val> [<Trunk>=<val>]
+ 	                   <INtf>=<val> <VLan>=<val> [<Hit>=<val>]
+ 	                   [<ECMP>=<1/0>] [<DstDiscard>=<val>] <PRI>=<val>
+ 	                   <RPE>=<val> [Replace=<bool>] [<MplsLabel>=<val>]
+ 	                   <TunnelOpt>=<val> <LookupClass>=<val>
+ 	                    - Add IPv6 route
+ 	  l3 ip6route delete <VRF>=<val> <IP>=<val> <MaskLen>=<val>
+ 	       [<ECMP=<1/0> <Mac>=<val> <INtf>=<val> <Port>=<val> [MOdule=<val>]
+ 	                    - Delete an IPv6 route
+ 	  l3 ip6route clear - Delete all IPv6 routes
+ 	  l3 ip6route age   - Clear all IPv6 route HIT bits
+ 	  l3 ip6route show  - Display all IPv6 routes
+ 	  l3 tunnel_init set <INtf>=<val> <TYpe>=<val> <TTL>=<val>
+ 	       <Mac>=<val> <DIP>=<val> <SIP>=<val> <DSCPSel>=<val> <DSCPV>=<val>
+ 	       <DFSEL4>=<val> <DFSEL6>=<val> <SIP6>=<val> <DIP6>=<val>
+ 	  l3 tunnel_init show <INtf>=<val>
+ 	  l3 tunnel_init clear <INtf>=<val>
+ 	  l3 tunnel_term add <TYPE>=<val> <VRF>=<val> <DIP>=<val> <SIP>=<val>
+ 	       <DipMaskLen>=<val> <SipMaskLen>=<val> <DIP6>=<val> <SIP6>=<val>
+ 	       <L4DstPort>=<val> <L4SrcPort>=<val> <OuterTTL>=<bool> 
+ 	       <OuterDSCP>=<val> <InnerDSCP>=<val> <TrustDSCP>=<val> 
+ 	       <VLanid>=<val> <PBMP>=<val> <AllowIPv6Payload>=<bool> 
+ 	       <AllowIPv4Payload>=<bool> <Replace>=<bool>
+ 	  l3 tunnel_term delete <TYPE>=<val> <VRF>=<val> <DIP>=<val> <SIP>=<val>
+ 	       <DipMaskLen>=<val> <SipMaskLen>=<val> <DIP6>=<val> <SIP6>=<val>
+ 	       <L4DstPort>=<val> <L4SrcPort>=<val> 
+ 	  l3 tunnel_term show <TYPE>=<val> <VRF>=<val> <DIP>=<val> <SIP>=<val>
+ 	       <DipMaskLen>=<val> <SipMaskLen>=<val> <DIP6>=<val> <SIP6>=<val>
+ 	       <L4DstPort>=<val> <L4SrcPort>=<val> 
+ 	  l3 dscp_map add
+ 	  l3 dscp_map destroy <DscpMapId>=<val>
+ 	  l3 dscp_map set <DscpMapId>=<val> <Priority>=<val> <Color>=<val>
+ 	                  <DSCPValue>=<val>
+ 	  l3 dscp_map show <DscpMapId>=<val>
+ 	  l3 dscp_map_port set <Port>=<val> <Priority>=<val> <Color>=<val>
+ 	                  <DSCPValue>=<val>
+ 	  l3 dscp_map_port show <Port>=<val>
+ 	  l3 prefix_map add <IP>=<val>
+ 	  l3 prefix_map delete <IP>=<val>
+ 	                  - Destroy ip6 prefix map to IPv4 entry
+ 	  l3 prefix_map clear
+ 	                  - Flush ip6 prefix map to IPv4 entry
+ 	  l3 prefix_map show [entry]
+ 	                  - Show ip6 prefix map to IPv4 entry
+ 	

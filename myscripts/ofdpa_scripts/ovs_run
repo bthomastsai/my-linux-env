@@ -1,0 +1,72 @@
+#!/bin/sh
+
+usage() { echo "Usage: $0 [-c <ip>] [-v <1|4>]"; exit 1; }
+
+RUN_ROOT=/opt/sdk-xgs-robo
+CDIR=${RUN_ROOT}
+CONTROLLER_IP=2.1.1.2
+OF_VER=4
+
+while getopts ":c:v:" o; do
+    case "${o}" in 
+        c)
+            CONTROLLER_IP=${OPTARG}
+            echo "Controller IP: ${CONTROLLER_IP}"
+            ;;
+        v)
+            s=${OPTARG}
+            ((s == 1 || s == 4)) || usage
+            OF_VER=$s
+            echo "OF version: ${OF_VER}"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+#
+# For log
+#
+LDIR=$HOME/log
+mkdir -p $LDIR
+test -e ${LDIR}/.runtimes || echo "0" > ${LDIR}/.runtimes
+r=`cat ${LDIR}/.runtimes`
+r=$(( $r+1 )) && echo "$r" > ${LDIR}/.runtimes
+D=`date +%m_%d_%k_%M`
+LOG_FILE=${LDIR}/${r}_ovs_$D.txt
+echo "$LOG_FILE"
+
+cd ${RUN_ROOT}
+#echo "Kill ofagent"
+#`pidof ofagent &>/dev/null` && kill `pidof ofagent`
+#while [ 1 ]; do
+#	test `pidof ofagent` || break
+#done
+
+echo "Remove kernel module and make device node"
+lsmod | grep linux_bcm_knet &> /dev/null && rmmod linux-bcm-knet.ko
+lsmod | grep linux_user_bde &> /dev/null && rmmod linux-user-bde.ko
+lsmod | grep linux_kernel_bde &> /dev/null && rmmod linux-kernel-bde.ko
+ls -l /dev/linux-bcm-knet &> /dev/null || mknod /dev/linux-bcm-knet c 122 0
+ls -l /dev/linux-user-bde &> /dev/null || mknod /dev/linux-user-bde c 126 0
+ls -l /dev/linux-kernel-bde &> /dev/null || mknod /dev/linux-kernel-bde c 127 0
+export BCM_CONFIG_FILE=/root/ofdpa/config.bcm
+
+echo "Start ofdpa"
+./ofdpa 2>&1 | tee ${LOG_FILE} &
+
+cnt=0
+while [ $cnt -lt 10 ]; do
+	grep "rpcsrvTask" ${LOG_FILE} &>/dev/null && break || sleep 1
+done
+
+echo "Set debug component and debug level"
+${CDIR}/client_debugcomp -c 1
+${CDIR}/client_debugcomp -c 2
+${CDIR}/client_debugcomp -c 3
+${CDIR}/client_debugcomp -c 4
+${CDIR}/client_debugcomp -c 5
+${CDIR}/client_debuglvl 2
+${CDIR}/client_drivshell "port xe0-xe49 SPeed=1000 Enable=true DIScard=none LeaRN=0x5"
+${CDIR}/client_drivshell "ps"

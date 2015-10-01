@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#
+# Create ingress stage
+#
+fp init
+fp qset add Stage
+fp qset add StageIngress
+fp qset add DstClassField
+fp qset add InPorts
+fp group create 0 1
+fp entry create 1 1
+fp stat create group=1 type0=Packets
+fp qual 1 clear
+fp qual 1 DstClassField 1 255
+fp action add 1 drop
+fp stat attach entry=1
+fp entry install 1
+
+fp entry create 1 2
+fp stat create group=1 type0=Packets
+fp qual 2 clear
+fp qual 2 InPorts 0x7ffffffffffff 0x7ffffffffffff
+fp action add 2 CopyToCpu 1 170
+fp stat attach entry=2
+fp entry install 2
+
+#
+# Create ClassDestSet of Lookup stage
+#
+fp qset clear
+fp qset add StageLookup
+#fp qset add srcip 
+fp qset add InPort
+fp group create 0 2 
+fp entry create 2 3
+fp stat create group=2 type0=Packets
+fp qual 3 clear
+#fp qual 3 srcip 10.0.8.15 255.255.255.255
+fp qual 3 InPort 0x1 0x7ffffffffffff
+fp action add 3 ClassDestSet 1
+fp action add 3 Drop
+fp stat attach entry=3
+fp entry install 3
+
