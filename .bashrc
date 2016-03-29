@@ -38,7 +38,7 @@ alias svnvimdiff='svn diff --diff-cmd $HOME/bin/diffwrap.sh'
 alias cgrep='grep --include="*.[chsS]"'
 alias sdcv='sdcv -n'
 alias svnurl="svn info | awk '/^URL/ {print \$2}'"
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')

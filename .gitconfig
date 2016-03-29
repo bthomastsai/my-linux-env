@@ -1,0 +1,8 @@
+[user]
+	email = bthomas.tsai@gmail.com
+	name = Thomas Tsai
+[color]
+	branch = auto
+	grep = auto
+	diff = auto
+	ui = auto
