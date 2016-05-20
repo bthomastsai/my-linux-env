@@ -17,8 +17,10 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+#if [ -d "$HOME/bin" ] ; then
+#    PATH="$HOME/bin:$PATH"
+#fi
 
 [ -d "$HOME/.vim/bundle/gj/bin" ] && PATH="$PATH:$HOME/.vim/bundle/gj/bin"
+
+export IBUS_ENABLE_SYNC_MODE=1

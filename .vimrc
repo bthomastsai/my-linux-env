@@ -97,7 +97,7 @@ set mouse=n
 
 "Colorscheme options
 set t_Co=256
-colorscheme molokai
+colorscheme wombat256
 set cursorline
 let python_highlight_all = 1
 
