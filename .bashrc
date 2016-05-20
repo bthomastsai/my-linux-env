@@ -20,7 +20,7 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=3000
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
@@ -34,6 +34,9 @@ fi
 if [ -f /etc/debian_version ]; then 
     debian_version=$(cat /etc/debian_version)
 fi
+
+# set machine mode
+machine=$(uname -m)
 
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
@@ -52,16 +55,16 @@ function git_branch {
 }
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$debian_version" in
-6.0.9)
-    PS1='<\[\033[04;33m\]\u@$debian_version\[\033[00m\]:\w/\n\T\$>'
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    ;;
-*)
+#case "$debian_version" in
+#6.0.9)
+#    PS1='<\[\033[04;33m\]\u@$debian_version\[\033[00m\]:\w/\n\T\$>'
+#    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#    ;;
+#*)
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='<\[\033[01;32m\]\u@\h-${debian_version}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
-    ;;
-esac
+    PS1='<\[\033[01;32m\]\u@\h-${machine}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
+#    ;;
+#esac
 
 # Comment in the above and uncomment this below for a color prompt
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
