@@ -1,4 +1,10 @@
 
+== Build FSL image with qt5 ==
+bitbake fsl-image-qt5
+
+== Build FSL image GUI without qt5 ==
+bitbake fsl-image-gui
+
 ## Clean a package
 bitbake -c clean <package>, like bitbake -c clean qtconnectivity
 
