@@ -96,7 +96,7 @@ set mouse=n
 " set gfn=Monaco:h12
 
 "Colorscheme options
-set t_Co=256
+" set t_Co=256
 colorscheme wombat256
 set cursorline
 let python_highlight_all = 1
@@ -234,7 +234,7 @@ set tags+=/Users/bthomastsai/.vim/tags
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 let g:SuperTabDefaultCompletionType = 'context'
 
-let g:ackprg = "/Users/smpuser/bin/ack"
+let g:ackprg = "/usr/bin/ack-grep"
 "let g:ackprg = 'ag --nogroup --nocolor --column'
 "
 if executable('ag')

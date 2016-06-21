@@ -11,3 +11,4 @@ alias cgrep='grep --include="*.[chsS]"'
 alias sdcv='sdcv -n'
 alias svnurl="svn info | awk '/^URL/ {print \$2}'"
 ##alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias ack='ack-grep'
