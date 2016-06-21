@@ -1,0 +1,7 @@
+
+## Clean a package
+bitbake -c clean <package>, like bitbake -c clean qtconnectivity
+
+## rebuild a package
+bitbake -f <package>, like bitbake -f qtconnectitity
+

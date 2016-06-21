@@ -1,0 +1,5 @@
+mail POP server: mail.coretronic.com Port:110
+username: thomas.tsai@coretronic.com
+SMTP: mail.coretronic.com Port:25
+usename: thomas.tsai@coretronic.com
+Secure Connection: None

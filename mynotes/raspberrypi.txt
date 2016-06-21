@@ -1,0 +1,5 @@
+ip: 10.10.10.3
+username: pi
+password: 12345678
+
+vnc viewer:K2B7H-7HDTH-FAENH-24F62-W5SAA
