@@ -5,3 +5,10 @@ bitbake -c clean <package>, like bitbake -c clean qtconnectivity
 ## rebuild a package
 bitbake -f <package>, like bitbake -f qtconnectitity
 
+# Manually modify source code
+devtool modify -x <recipe-name> <path-to-unpack-source>, ex,
+--> devtool modify -x qtmultimedia tmp/work/tt
+
+# build modified source code
+devtool build <recipe-name>, ex,
+--> devtool build qtmultimedia
