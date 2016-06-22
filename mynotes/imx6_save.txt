@@ -1,4 +1,0 @@
-bootargs=console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmalloc=256M init=/init lvds_num=0 video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:dev=hdmi,1920x1080M@60,bpp=32 video=mxcfb2:off video=mxcfb3:off androidboot.hardware=freescale cma=384M
-
-smp=video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24 video=mxcfb1:dev=ldb,LDB-XGA,if=RGB666
-setenv smp 'video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:dev=hdmi,1920x1080M@60,if=RGB24'

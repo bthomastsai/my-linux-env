@@ -144,6 +144,10 @@ autocmd FileType make setlocal noexpandtab shiftwidth=4
 " autocmd InsertEnter * match ForbiddenWhitespace /\t\|\s\+\%#\@<!$/
 "autocmd FileType c,cpp,python,ruby,java autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+" Markdown file
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+
 au BufReadPost svn-commit.tmp  silent! exe '0read  ~/.commit.template'
 
 ab teh the
