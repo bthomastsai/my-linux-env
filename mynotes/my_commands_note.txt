@@ -59,3 +59,12 @@ gcc basic-tutorial-1.c -o basic-tutorial-1 `pkg-config --cflags --libs gstreamer
 
 === Play local webcam and remote ip cam ===
 gst-launch-1.0 v4l2src device=/dev/video2 ! video/x-raw,width=1280,height=720 ! imxg2dvideosink window-x-coord=0 window-y-coord=0 window-width=1080 window-height=640 playbin uri=http://10.1.13.72:8081 video-sink="imxg2dvideosink window-x-coord=1080 window-y-coord=640 window-width=640 window-height=480"
+
+
+=== Gstreamer RTSP Laptop(RTSP server) to UDOO(RTSP client) ===
+On Laptop, build and install gst-rtsp-server (from https://github.com/GStreamer/gst-rtsp-server.git), and change to examples folder, run
+./test-mp4 ~/Videos/test.mp4
+
+On UDOO, run
+gst-launch-1.0 rtspsrc location=rtsp://192.168.50.28:8554/test ! rtph264depay ! h264parse ! imxvpudec ! autovideosink
+
