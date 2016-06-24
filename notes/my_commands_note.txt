@@ -70,3 +70,6 @@ gst-launch-1.0 rtspsrc location=rtsp://192.168.50.28:8554/test ! rtph264depay ! 
 
 IMX6 android multiple display
 bootargs=console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmalloc=256M init=/init lvds_num=0 video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:dev=hdmi,1920x1080M@60,bpp=32 video=mxcfb2:off video=mxcfb3:off androidboot.hardware=freescale cma=384M
+
+#### Yocto built rootfs #### 
+> /home/thomas/projects/fsl/fsl-release-bsp/build-x11/tmp/work/imx6qpsabresd-poky-linux-gnueabi/fsl-image-qt5/1.0-r0/rootfs
