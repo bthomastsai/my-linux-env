@@ -54,6 +54,7 @@ function git_branch {
     [ -n "${branch}" ] && echo "$branch"
 }
 
+machine=$(uname -m)
 # set a fancy prompt (non-color, unless we know we "want" color)
 #case "$debian_version" in
 #6.0.9)
