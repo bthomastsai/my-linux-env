@@ -1,0 +1,7 @@
+# To build OpenWRT VPN #
+1. cp wrt_vpn/package/* mt7620_wrt/package.
+1. cp config file
+1. ./script/feeds update -a
+1. ./script/feeds install -a
+1. make menuconfig
+1. make V=s
