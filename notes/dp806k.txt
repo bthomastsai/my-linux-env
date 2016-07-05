@@ -5,3 +5,11 @@
 1. ./script/feeds install -a
 1. make menuconfig
 1. make V=s
+
+
+# To update HC808K firmware #
+1. Sometimes, need to update it by clear.bin, power-on, and reprogramming the updated firmware.
+
+# To set SSID #
+1. Set Wifi SSID, AT#SETSSID="ttwrt","12345678",6 --> WPA2
+1. Get MAC address, AT#GETMAC

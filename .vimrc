@@ -93,7 +93,7 @@ set mouse=n
 " set tabpagemax=15
 
 "Font info
-" set gfn=Monaco:h12
+set guifont=Monaco
 
 "Colorscheme options
 " set t_Co=256
@@ -119,7 +119,7 @@ set showmode
 set showmatch
 "set ignorecase
 "set smartindent
-set modeline
+"set modeline
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set fileformats=dos,unix " support all three, in this order
 

@@ -159,4 +159,5 @@ export LC_ADDRESS="en_US.UTF-8"
 export LC_TELEPHONE="en_US.UTF-8"
 export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
