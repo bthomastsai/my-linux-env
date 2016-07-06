@@ -38,6 +38,9 @@ fi
 # set machine mode
 machine=$(uname -m)
 
+# set hostname
+hname=$(cat /etc/hostname)
+
 function parse_git_branch { 
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
     url=$(git remote show -n origin 2> /dev/null | sed -n 's/Fetch URL:\ //p')
@@ -54,7 +57,6 @@ function git_branch {
     [ -n "${branch}" ] && echo "$branch"
 }
 
-machine=$(uname -m)
 # set a fancy prompt (non-color, unless we know we "want" color)
 #case "$debian_version" in
 #6.0.9)
@@ -63,7 +65,7 @@ machine=$(uname -m)
 #    ;;
 #*)
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='<\[\033[01;32m\]\u@\h-${machine}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
+    PS1='<\[\033[01;32m\]\u@${hname}\[\033[00m\]:\w\[\033[01;31m\]$(git_url)\[\033[00m\]\[\033[01;33m\]->$(git_branch)\[\033[00m\]/\n\T\$>'
 #    ;;
 #esac
 

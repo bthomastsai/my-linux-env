@@ -93,7 +93,7 @@ set mouse=n
 " set tabpagemax=15
 
 "Font info
-set guifont=Monaco
+"set guifont=Menlo\ 11
 
 "Colorscheme options
 " set t_Co=256
@@ -119,18 +119,19 @@ set showmode
 set showmatch
 "set ignorecase
 "set smartindent
-"set modeline
+set modelines=3
+set modeline
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-set fileformats=dos,unix " support all three, in this order
+set fileformats=unix,dos,mac " support all three, in this order
 
 syntax on
 
 " indentation rules for FFmpeg: 4 spaces, no tabs
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 retab
-"set softtabstop=4
 "set noexpandtab
 set cindent
 set cinoptions=(0
