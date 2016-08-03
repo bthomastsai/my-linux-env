@@ -163,3 +163,13 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+
+#
+# Disable Lenovo T430s touchpad
+#
+touchpad_id=$(xinput list | grep "TouchPad" | awk -F"id=" '{print $2}' | awk '{print $1}')
+touch_state=$(xinput list-props ${touchpad_id} | grep "Device Enabled" | awk '{print $4}')
+if [ ${touch_state} -eq 1 ]; then
+  xinput set-prop ${touchpad_id} "Device Enabled" 0
+fi
+

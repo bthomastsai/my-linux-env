@@ -123,6 +123,7 @@ set modelines=3
 set modeline
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set fileformats=unix,dos,mac " support all three, in this order
+set fileencoding=utf8
 
 syntax on
 

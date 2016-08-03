@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ssh_cmd="ssh -NR 12481:localhost:22 -p 443 bthomastsai.ddns.net"
+ssh_cmd="ssh -NR 12481:localhost:22 -p 443 www.bthomastsai.idv.tw"
 retry=1
 
 while [ "$retry" -le 1555 ];
