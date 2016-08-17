@@ -17,11 +17,17 @@
 
 <br />
 
-## To set SSID ##
-1. Set Wifi SSID, **AT#SETSSID**="ttwrt","12345678",6 --> WPA2
-1. Get MAC address, **AT#GETMAC**
-1. Clear SSID, **AT#CLEARSSID**
-
 # OpenWRT notes #
 1. Wireless modules are located in **build_dir/target-mipsel_24kec+dsp_uClibc-0.9.33.2/linux-ramips_mt7620/compat-wireless-2015-03-09/**
 
+# OpenWrt LuCI #
+## How to Add module ##
+1. _Restart without reboot for modified lua:_
+	- **/etc/init.d/uhttpd stop **
+	- **rm -rf /tmp/luci-indexcache /tmp/luci-modulecache/**
+	- **/etc/init.d/uhttpd start **
+1. _UCI command utility:_
+	- **show /etc/config/pptpd:** uci show pptpd
+	- **show option of /etc/config/pptpd:** 
+		- uci get pptpd.pptpd.enabled
+		- uci get pptpd.@login[0].username

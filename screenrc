@@ -1,0 +1,6 @@
+logfile $HOME/LOG/screen_%Y-%m-%d-%c_%s_%n.log
+logfile flush 1
+deflog on
+logtstamp after 1
+logtstamp string "[ %t: %Y-%m-%d %c:%s ]\012 "
+logtstamp on
