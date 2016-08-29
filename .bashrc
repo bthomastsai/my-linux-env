@@ -167,9 +167,8 @@ export LC_ALL="en_US.UTF-8"
 #
 # Disable Lenovo T430s touchpad
 #
+export DISPLAY=:0.0
 touchpad_id=$(xinput list | grep "TouchPad" | awk -F"id=" '{print $2}' | awk '{print $1}')
-touch_state=$(xinput list-props ${touchpad_id} | grep "Device Enabled" | awk '{print $4}')
-if [ ${touch_state} -eq 1 ]; then
-  xinput set-prop ${touchpad_id} "Device Enabled" 0
-fi
+[ -n "${touchpad_id}" ] && touch_state=$(xinput list-props ${touchpad_id} | grep "Device Enabled" | awk '{print $4}')
+[ -n "${touch_state}" ] && [ ${touch_state} -eq 1 ] && xinput set-prop ${touchpad_id} "Device Enabled" 0
 
