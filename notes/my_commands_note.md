@@ -76,3 +76,7 @@ bootargs=console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmall
 #### Yocto built rootfs ####
 > /home/thomas/projects/fsl/fsl-release-bsp/build-x11/tmp/work/imx6qpsabresd-poky-linux-gnueabi/fsl-image-qt5/1.0-r0/rootfs
 
+
+## Gitlab with Https ##
+echo -n | openssl s_client -showcerts -connect www.bthomastsai.idv.tw:443 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> ~/1
+sudo sh -c 'cat ~/1 >> /etc/ssl/cert/ca_certificates.crt

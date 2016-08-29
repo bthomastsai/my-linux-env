@@ -6,3 +6,5 @@
 	grep = auto
 	diff = auto
 	ui = auto
+[core]
+	excludsfile = /home/thomas/.gitignore_global
