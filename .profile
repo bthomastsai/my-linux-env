@@ -20,6 +20,17 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+#
+# Setup Android development environment
+#
+if [ -d "/opt/jdk" ]; then
+    PATH="/opt/jdk/bin:$PATH"
+fi
+
+if [ -d "/opt/android-studio" ]; then
+    PATH="/opt/android-studio/bin/:$PATH"
+fi
+
 [ -d "$HOME/.vim/bundle/gj/bin" ] && PATH="$PATH:$HOME/.vim/bundle/gj/bin"
 
 export IBUS_ENABLE_SYNC_MODE=1

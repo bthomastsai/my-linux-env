@@ -1,0 +1,200 @@
+#!/usr/bin/perl
+
+use strict;
+use Term::ANSIColor qw(:constants);
+use LWP::UserAgent;
+use HTML::Entities;
+use warnings;
+use utf8;
+binmode STDOUT, ":utf8";
+
+if ($#ARGV == -1) {
+	print "<Yahoo!奇摩字典> ";
+	while (<>) {
+		chomp;
+		if ("$_" eq '') {
+			print "<Yahoo!奇摩字典> ";
+			next;
+		}
+		ydict($_);
+		print "<Yahoo!奇摩字典> ";
+	}
+} else {
+	while ($#ARGV != -1) {
+		ydict(shift);
+	}
+}
+
+sub ydict
+{
+	my $p = shift || die;
+	utf8::decode($p);
+	my $ua = LWP::UserAgent->new(
+		default_headers => HTTP::Headers->new(
+			"User-Agent" => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:21.0) Gecko/20130331 Firefox/21.0",
+			"Referer" => "http://tw.dictionary.yahoo.com/dictionary"
+		)
+	);
+	$ua->timeout(10);
+	my $resp = $ua->get("http://tw.dictionary.yahoo.com/dictionary?p=$p");
+	my $html = $resp->decoded_content;
+	utf8::decode($html);
+	decode_entities($html);
+	$html =~ s/\r//g;
+	$html =~ s/\n//g;
+
+	print BOLD . YELLOW . "$p 的查詢結果:" . RESET . "\n\n";
+
+	parsehtml($html, $p);
+}
+
+sub parsehtml
+{
+	my $html = shift;
+	my $p = shift;
+	my $pron = "";
+	my $target = "";
+	my $summary = "";
+	my $disambiguate = "";
+
+	if($html =~ m/<div class="summary">/) {
+		$html = $';
+		($target) = $html =~ m/<h2>([^<]*)</;
+	}
+	else {
+		print BOLD.RED."查無此字\n".RESET;
+		return;
+	}
+	if($html =~ m/<!-- END: php include\('module\/result-summary\.php'\); -->/) {
+		$summary = $`;
+		$html = $';
+	}
+	if($html =~ m/<!-- BEGIN: disambiguate-wrapper -->/) {
+		$html = $`;
+		$disambiguate = $';
+		$disambiguate =~ m/<!-- END: disambiguate-wrapper -->/;
+		$disambiguate = $`;
+	}
+	if($target ne $p) {
+		print RED.BOLD."拼字檢查: $p -> $target\n\n".RESET;
+	}
+	if($summary =~ m/<dt>KK<\/dt>[^<]*<dd>\[([^\]]*)\]/) {
+		print "KK: [", WHITE.BOLD.$1.RESET,"]\n";
+	}
+
+	return if $html !~ m/<ul class="explanations">/m;
+	my $extras = $`;
+	$html =  $';
+	if($html =~ m/END: details-wrapper/) {
+		$html = $`;
+	}
+
+	while($html =~ m/<li class="type-item">/) {
+		my $caption;
+		my $class;
+		my $abbr;
+		my $count = 0;
+		$html = $';
+		if($html =~ m/<div class="type">([^<]*)</) {
+			$abbr = $1;
+			$html = $';
+		}
+		else {
+			$abbr = "";
+		}
+		print RED.BOLD.$abbr.RESET, "\n";
+
+		parseDefs($html, $count);
+		$count++;
+		print "\n";
+	}
+
+	while(my ($extra) = $extras =~ m/<div class="\w*\s*grammar">(.*?)<\/div>/) {
+		$extras = $';
+		parseExtras($extra);
+	}
+
+	if($disambiguate) {
+		parseDisambuate($disambiguate);
+	}
+
+}
+
+sub parseDisamSummary {
+	my $index = shift;
+	my $summary = shift;
+	my ($target) = $summary =~ m/<h2><a[^<]*>([^<]*)</;
+	print "    ".$index, ". ", $target, " ";
+	if($summary =~ m/<dt>KK<\/dt>[^<]*<dd>\[([^\]]*)\]/) {
+		print "[", WHITE.BOLD.$1.RESET,"] ";
+	}
+	if($summary =~ m/<p class="explanation">([^<]*)<\/p>/) {
+		print $1;
+	}
+	print "\n";
+}
+
+sub parseDisambuate {
+	my $html = shift;
+	return unless $html =~ /\S/;
+	print RED.BOLD."其他解釋\n".RESET;
+	my $count = 1;
+	while($html =~ /<!-- BEGIN: php include\('module\/result-summary\.php'\); -->/g) {
+		my $summary = $';
+		$summary =~ /<!-- END: php include\('module\/result-summary\.php'\); -->/;
+		parseDisamSummary($count, $summary);
+		$count++;
+	}
+}
+
+sub parseExtras {
+	my ($html) = @_;
+	if(my ($type) = $html =~ m/<h3>([^<]*)<\/h3>/) {
+		$html = $';
+		print BOLD.RED.$type.RESET, " ";
+		my ($list) = $html =~ m/<p>(.*?)<\/p>/;
+		$list =~ s/<[^>]*>//g;
+		$list =~ s/^\s*//g;
+		print "\n    ".$list."\n\n";
+	}
+}
+
+sub parseDefs
+{
+	my ($html, $count) = @_;
+	my $item;
+	my $interp;
+	my @examples;
+	my ($lists) = $html =~ m/<ol class="exp-list">(.*?)<\/ol>/;
+	$html = $';
+	$count = 1;
+	while(($item) = $lists =~ m/<li class="exp-item">(.*?)<\/li>/m) {
+		$lists = $';
+		($interp) = $item =~ m/<p class="exp">([^<]*)<\/p>/;
+		@examples = ();
+		while($item =~ m/<p class="sample">(.*?)<\/p>/g) {
+			my $example = $1;
+			my ($example_eng) = $example =~ m/(.*>(?:[.?;!"' ]+)?)/;
+			my ($example_cht) = $';
+			if($example_eng) {
+				$example_eng =~ s/<b>([^<]*)<\/b>/BOLD.$1.RESET.CYAN/ge;
+				$example_eng =~ s/<[^>]*>//g;
+				$example_eng =~ s/^\s*//;
+				$example_eng = RESET.CYAN.$example_eng.RESET;
+			}
+			$example_cht =~ s/^\s*//;
+			push @examples, [$example_eng || "", $example_cht || ""]
+		}
+		print "    $count. $interp";
+		if(@examples) {
+			foreach my $example (@examples) {
+				print "\n        ", $example->[0];
+				if($example->[1]) {
+					print "\n        ", GREEN.$example->[1].RESET;
+				}
+			}
+		}
+		print "\n";
+		$count++;
+	}
+}

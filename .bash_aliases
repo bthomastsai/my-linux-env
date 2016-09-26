@@ -14,3 +14,9 @@ alias sdcv='sdcv -n'
 alias svnurl="svn info | awk '/^URL/ {print \$2}'"
 ##alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias ack='ack-grep'
+alias myuci='uci -c /home/thomas/projects/standalone-uci/config'
+
+# for sdcv dictionaries
+alias longdao='sdcv -n -u "朗道英漢字典5.0"'
+alias longman='sdcv -n -u "Longman Dictionary of Contemporary English"'
+

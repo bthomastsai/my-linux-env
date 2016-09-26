@@ -80,3 +80,21 @@ bootargs=console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmall
 ## Gitlab with Https ##
 echo -n | openssl s_client -showcerts -connect www.bthomastsai.idv.tw:443 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> ~/1
 sudo sh -c 'cat ~/1 >> /etc/ssl/cert/ca_certificates.crt
+
+## CURL post command ##
+=== Mongoose restful server as example ===
+curl --data "n1=700&n2=110" http://127.0.0.1:8000/api/v1/sum
+
+=== curl POST REST API with JSON format ===
+* Add
+curl -X POST "http://10.10.10.111:8888/timers/v1/add" -i -H "Content-Type:application/json" -d '{"days":[true,false,true,false,true,false,true], "time":36400, "mac":"9c:65:f9:1b:e3:ec", "type":"on", "active":true}'
+
+* Edit
+curl -X POST "http://localhost:8888/timers/v1/edit" -i -H "Content-Type:application/json" -d '{"id":1, "days":[true,true,false,false,true,true,false], "time":66763, "type":"on", "active":true}'
+
+=== curl GET REST API with JSON format ===
+curl -X GET "http://127.0.0.1:8888/timers/v1/list"
+
+=== SQL command to query days_bitmask & 4 ===
+select * from timers where days_bitmask&4;
+

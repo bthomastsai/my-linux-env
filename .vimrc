@@ -276,3 +276,7 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 "command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
 set runtimepath^=~/.vim/bundle/ag
+
+" To support gtags-cscope
+"set cscopeprg=gtags-cscope
+"cs add GTAGS
