@@ -87,14 +87,40 @@ curl --data "n1=700&n2=110" http://127.0.0.1:8000/api/v1/sum
 
 === curl POST REST API with JSON format ===
 * Add
-curl -X POST "http://10.10.10.111:8888/timers/v1/add" -i -H "Content-Type:application/json" -d '{"days":[true,false,true,false,true,false,true], "time":36400, "mac":"9c:65:f9:1b:e3:ec", "type":"on", "active":true}'
+> curl -X POST "http://10.10.10.111:8888/timers/v1/add" -i -H "Content-Type:application/json" -d '{"days":[true,false,true,false,true,false,true], "time":36400, "mac":"9c:65:f9:1b:e3:ec", "type":"on", "active":true}'
 
 * Edit
-curl -X POST "http://localhost:8888/timers/v1/edit" -i -H "Content-Type:application/json" -d '{"id":1, "days":[true,true,false,false,true,true,false], "time":66763, "type":"on", "active":true}'
+>curl -X POST "http://localhost:8888/timers/v1/edit" -i -H "Content-Type:application/json" -d '{"id":1, "days":[true,true,false,false,true,true,false], "time":66763, "type":"on", "active":true}'
 
-=== curl GET REST API with JSON format ===
+== curl GET REST API with JSON format ==
 curl -X GET "http://127.0.0.1:8888/timers/v1/list"
 
-=== SQL command to query days_bitmask & 4 ===
+== SQL command to query days_bitmask & 4 ==
 select * from timers where days_bitmask&4;
 
+== NetworkManager configure IP alias ==
+sudo vim /etc/NetworkManager/system-connections/eth0
+
+== mzclient command ==
+mzclient -t '_blcs._tcp' -r
+
+== SSH without password setting ==
+cat ~/.ssh/id_rsa.pub | ssh -l thomas 2.1.1.119 'cat >> ~/.ssh/authorized_keys'
+
+== How to setup wxWidget on Windows ==
+1. Download [TDM-GCC](http://tdm-gcc.tdragon.net)
+1. Set TDM-GCC to path (Set PATH=C:\TDM-GCC\bin;C:\TDM-GCC\mingw32\bin)
+1. cd /D c:\wxWidget\build\msw
+1. mingw32-make -f makefile.gcc MONOLITHIC=1 SHARED=0 UNICODE=1 CXXFLAGS="-std=gnu++11" BUILD=release clean
+1. mingw32-make -f makefile.gcc MONOLITHIC=1 SHARED=0 UNICODE=1 CXXFLAGS="-std=gnu++11" BUILD=release
+1. mingw32-make -f makefile.gcc MONOLITHIC=1 SHARED=0 UNICODE=1 CXXFLAGS="-std=gnu++11" BUILD=debug clean
+1. mingw32-make -f makefile.gcc MONOLITHIC=1 SHARED=0 UNICODE=1 CXXFLAGS="-std=gnu++11" BUILD=debug
+
+== VirtualBox serial pipe notes ==
+1. Setup serial port to host pipe, like /tmp/myvbox
+1. socat UNIX-CONNECT:/tmp/myvbox TCP-LISTEN:8040
+1. telnet localhost 8040, --> Host can communicate with guest OS serial port.
+
+== Serial port monitor ==
+socat -x /dev/ttyUSB0,raw,echo=0,nonblock,min=0,b115200 PTY,link=/tmp/ttyV0,raw,echo=0,waitslave,nonblock,min=0,b115200,onlcr=0,iexten=0,eof=01,echoe=0,echok=0,noflsh=1,echoctl=0,echoke=0
+socat /dev/ttyUSB0,raw,echo=0,b115200 SYSTEM:'tee input.txt | socat - "PTY,link=/tmp/ttyV0,raw,echo=0,b115200,waitslave" | tee output.txt'

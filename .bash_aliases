@@ -19,4 +19,5 @@ alias myuci='uci -c /home/thomas/projects/standalone-uci/config'
 # for sdcv dictionaries
 alias longdao='sdcv -n -u "朗道英漢字典5.0"'
 alias longman='sdcv -n -u "Longman Dictionary of Contemporary English"'
+alias oxford='sdcv -n -u "牛津現代英漢雙解詞典"'
 

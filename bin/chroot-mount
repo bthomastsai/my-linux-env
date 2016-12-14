@@ -16,5 +16,6 @@ sudo mount -o rw,bind /home/thomas/my-linux-env ${chroot_path}/home/thomas/my-li
 sudo mount -o rw,bind /home/thomas/projects ${chroot_path}/home/thomas/projects
 sudo mount -o rw,bind /opt ${chroot_path}/opt
 sudo mount -o rw,bind /var/lib/tftpboot ${chroot_path}/tftpboot
+sudo mount -o rw,bind /home/thomas/opensources ${chroot_path}/home/thomas/opensources
 exit 0
 

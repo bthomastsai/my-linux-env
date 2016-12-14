@@ -132,9 +132,9 @@ set fileencoding=utf8
 syntax on
 
 " indentation rules for FFmpeg: 4 spaces, no tabs
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 retab
 "set noexpandtab
