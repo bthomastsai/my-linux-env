@@ -34,3 +34,4 @@ fi
 [ -d "$HOME/.vim/bundle/gj/bin" ] && PATH="$PATH:$HOME/.vim/bundle/gj/bin"
 
 export IBUS_ENABLE_SYNC_MODE=1
+PATH="$PATH:/opt/brcm/hndtools-mipsel-linux/bin:/opt/brcm/hndtools-mipsel-uclibc/bin:/opt/brcm-arm/bin"
