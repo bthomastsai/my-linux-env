@@ -8,3 +8,4 @@
 	ui = auto
 [core]
 	excludsfile = /home/thomas/.gitignore_global
+	excludesfile = /home/thomas/.gitignore_global

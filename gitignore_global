@@ -37,3 +37,6 @@
 
 # code tracing file
 cscope.out
+
+# kernel object
+*.cmd
