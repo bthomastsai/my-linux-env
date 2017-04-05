@@ -124,3 +124,4 @@ cat ~/.ssh/id_rsa.pub | ssh -l thomas 2.1.1.119 'cat >> ~/.ssh/authorized_keys'
 == Serial port monitor ==
 socat -x /dev/ttyUSB0,raw,echo=0,nonblock,min=0,b115200 PTY,link=/tmp/ttyV0,raw,echo=0,waitslave,nonblock,min=0,b115200,onlcr=0,iexten=0,eof=01,echoe=0,echok=0,noflsh=1,echoctl=0,echoke=0
 socat /dev/ttyUSB0,raw,echo=0,b115200 SYSTEM:'tee input.txt | socat - "PTY,link=/tmp/ttyV0,raw,echo=0,b115200,waitslave" | tee output.txt'
+ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@192.168.0.1

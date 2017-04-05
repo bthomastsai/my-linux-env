@@ -22,3 +22,16 @@
 	It displays all the input devices connected. Note that they all have an id. Since 12 is the id for my touchpad, running the following command will disable it.
 
 	xinput set-prop 12 "Device Enabled" 0
+
+
+## How to build a specific kernel modules from source code ##
+    - Download source codes
+    - make oldconfig
+    - make prepare
+    - make scripts
+    - cp -v /usr/src/linux-header-$(uname -r)/Module.symvers .
+        * This to prevent the message "no symbol version for module_layout" when loading the module with insmod or modprobe.
+    - mv -v /lib/modules/$(uname -r)/kernel/drivers/net/wireless/ath.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless/ath.ko.backup
+        * This will rename the original (Ubuntu build) kernel module to make sure that the custom patched one will load.
+    - make -C /lib/modules/$(uname -r)/build M=$(pwd)/drivers/net/wireless/net/ath modules
+
