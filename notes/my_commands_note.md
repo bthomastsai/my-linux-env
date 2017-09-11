@@ -129,3 +129,7 @@ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@192.168.0.1
 == QCA6174 ==
 lspci -v output
 lspci -vs
+
+== Python FTP server ==
+python -m pyftpdlib -w --> Start ftp server to be writable
+python -m SimpleHTTPServer --> Start http server
