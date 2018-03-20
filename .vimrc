@@ -99,10 +99,10 @@ set mouse=n
 "set t_Co=256
 colorscheme wombat256
 "set cursorline
-"hi cursorline cterm=none ctermbg=darkblue ctermfg=white
-autocmd BufNewFile,BufRead * highlight CursorLine cterm=none ctermbg=darkblue ctermfg=white guibg=darkblue guifg=white
-autocmd InsertEnter * highlight CursorLine cterm=none ctermbg=DarkMagenta ctermfg=white guibg=darkblue guifg=white
-autocmd InsertLeave * highlight CursorLine cterm=none ctermbg=darkblue ctermfg=white guibg=darkblue guifg=white
+" hi cursorline cterm=none ctermbg=darkblue ctermfg=white guibg=#66cc99 guifg=black
+autocmd BufNewFile,BufRead * highlight CursorLine cterm=none ctermbg=darkblue ctermfg=white guibg=#66cc99 guifg=black
+autocmd InsertEnter * highlight CursorLine cterm=none ctermbg=DarkMagenta ctermfg=white guibg=#66cc99 guifg=black
+autocmd InsertLeave * highlight CursorLine cterm=none ctermbg=darkblue ctermfg=white guibg=#66cc99 guifg=black
 let python_highlight_all = 1
 
 "Other Options
