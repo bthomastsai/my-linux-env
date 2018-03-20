@@ -1,5 +1,5 @@
 [user]
-	email = bthomas.tsai@gmail.com
+	email = thomas.tsai@wnc.com.tw
 	name = Thomas Tsai
 [color]
 	branch = auto
@@ -9,3 +9,4 @@
 [core]
 	excludsfile = /home/thomas/.gitignore_global
 	excludesfile = /home/thomas/.gitignore_global
+

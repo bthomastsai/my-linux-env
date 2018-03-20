@@ -1,0 +1,8 @@
+sudo apt-get update
+sudo apt-get install build-essential fakeroot dpkg-dev libcurl4-openssl-dev
+sudo apt-get build-dep git
+mkdir ~/git-openssl
+cd ~/git-openssl
+apt-get source git
+dpkg-source -x git_1.7.9.5-1.dsc
+cd git-1.7.9.5
