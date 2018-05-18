@@ -22,3 +22,17 @@ make user/xmlconfig_clean --> clean package
 make user/xmlconfig_romfs --> install package to romfs
 make user/xmlconfig_menuconfig --> do menuconfig for package which has menuconfig
 
+## Build RTL9602 ##
+make preconfig2630_9602C_spi_nand_demo CONFIG_PRODUCT=luna
+make menuconfig
+make all
+Need to modify kernel/timeconst.pl
+
+
+make romfs
+make image
+
+## Build SDK related ##
+unselect User Configuration -> Core Application -> RTK_RG_INIT scripts
+make sdk.shell_tree
+make all
