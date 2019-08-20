@@ -9,4 +9,6 @@
 [core]
 	excludsfile = /home/thomas/.gitignore_global
 	excludesfile = /home/thomas/.gitignore_global
+	autocrlf = input
+	eol = lf
 
