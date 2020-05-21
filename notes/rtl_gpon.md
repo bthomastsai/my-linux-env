@@ -36,3 +36,8 @@ make image
 unselect User Configuration -> Core Application -> RTK_RG_INIT scripts
 make sdk.shell_tree
 make all
+
+
+
+## Test SLIC (LE9642) Ringing ## 
+while [ 1 ]; do ring -c 0 -t 0 ; done &  while [ 1 ]; do ring -c 1 -t 0; done &

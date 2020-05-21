@@ -1,0 +1,24 @@
+Yes, it is OK to mount empty UBI volumes, i.e. the volumes which contain only 0xFF bytes. In this case UBIFS formats the media automatically with default parameters (journal size, compression, etc). But generally, this feature should have limited use (developing, debugging), and a proper UBIFS image should preferably be created and flashed (see this section).
+
+Note, UBI has similar property and it automatically formats the flash media if it is empty (see here). So if there is an mtd0 MTD device, the following will work:
+
+# Wipe the MTD device out. Note, we could use flash_eraseall, but we do not
+# want to lose erase counters
+ubiformat /dev/mtd0
+
+# Load UBI module
+modprobe ubi
+
+# Attach mtd0 to UBI - UBI will detect that the MTD device is
+# empty and automatically format it. This command will also create
+# UBI device 0 and udev should create /dev/ubi0 node
+ubiattach /dev/ubi_ctrl -m 0
+
+# Create an UBI volume - the created volume will be empty
+ubimkvol /dev/ubi0 -N test_volume -s 10MiB
+
+# Mount UBIFS - it will automatically format the empty volume
+mount -t ubifs ubi0:test_volume /mnt/ubifs
+It is also possible to wipe out an existing UBIFS volume represented by /dev/ubi0_0 using the following command:
+
+ubiupdatevol /dev/ubi0_0 -t

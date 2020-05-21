@@ -79,7 +79,7 @@ bootargs=console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmall
 
 ## Gitlab with Https ##
 echo -n | openssl s_client -showcerts -connect www.bthomastsai.idv.tw:443 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> ~/1
-sudo sh -c 'cat ~/1 >> /etc/ssl/cert/ca_certificates.crt
+sudo sh -c 'cat ~/1 >> /etc/ssl/certs/ca_certificates.crt
 
 ## CURL post command ##
 === Mongoose restful server as example ===
