@@ -177,3 +177,11 @@ export LC_ALL="en_US.UTF-8"
 #[ -n "${touchpad_id}" ] && touch_state=$(xinput list-props ${touchpad_id} | grep "Device Enabled" | awk '{print $4}')
 #[ -n "${touch_state}" ] && [ ${touch_state} -eq 1 ] && xinput set-prop ${touchpad_id} "Device Enabled" 0
 
+
+#
+# GNU Global
+# 
+export GTAGSCONF=/usr/local/share/gtags/gtags.conf
+export GTAGSLABEL=ctags-exuberant
+export GTAGSLABEL=pygments
+
