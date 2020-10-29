@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#if [ -z $1 ]; then
+#    echo "Usage: $0 chroot-path, like $0 /chroot/xenial"
+#    exit -1
+#fi
+
+#chroot_path=$1
+chroot_path=/ch1-home/thomas/chroot-env/ipq4019_build_env
+echo "chroot path ${chroot_path}"
+
+sudo umount ${chroot_path}/ch1-home/thomas/projects/dakota
+sudo umount ${chroot_path}/ch1-home/thomas/my-linux-env
+sudo umount ${chroot_path}/dev/pts
+sudo umount ${chroot_path}/dev
+sudo umount ${chroot_path}/sys
+sudo umount ${chroot_path}/proc
+exit 0
+

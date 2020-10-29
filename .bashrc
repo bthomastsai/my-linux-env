@@ -94,9 +94,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ "$TERM" != "xterm-256color" ]; then
-    export TERM=xterm-256color
-fi
+#if [ "$TERM" != "xterm-256color" ]; then
+#    export TERM=xterm-256color
+#fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
