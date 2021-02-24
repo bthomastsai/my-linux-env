@@ -133,3 +133,6 @@ lspci -vs
 == Python FTP server ==
 python -m pyftpdlib -w --> Start ftp server to be writable
 python -m SimpleHTTPServer --> Start http server
+
+== diff command ==
+diff -qr -EZb -wB dir1 dir2
