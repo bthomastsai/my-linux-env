@@ -1,4 +1,5 @@
 " MacVim colorscheme
+" vim: tw=0 ts=4 sw=4
 "
 " Maintainer:   Bjorn Winckler <bjorn.winckler@gmail.com>
 " Last Change:  2008 Sep 2
@@ -8,7 +9,7 @@
 " backgrounds (see :h 'background').
 "
 
-
+set background=dark
 highlight clear
 
 " Reset String -> Constant links etc if they were reset
@@ -16,8 +17,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "thomast"
-
+let g:colors_name = "thomast"
 
 "
 " First list all groups common to both 'light' and 'dark' background.
@@ -65,7 +65,7 @@ hi Identifier   gui=NONE guifg=Aquamarine4 guibg=NONE
 hi Ignore       gui=NONE guifg=bg guibg=NONE
 hi PreProc      gui=NONE guifg=DodgerBlue3 guibg=NONE
 hi Special      gui=NONE guifg=BlueViolet guibg=NONE
-hi String       gui=NONE guifg=SkyBlue4 guibg=NONE
+hi String       gui=NONE ctermfg=Cyan guifg=SkyBlue4 guibg=NONE
 hi Underlined   gui=underline guifg=SteelBlue1
 
 
@@ -75,7 +75,7 @@ hi Underlined   gui=underline guifg=SteelBlue1
 
 if &background == "dark"
   hi Boolean      gui=NONE guifg=DeepPink4 guibg=NONE
-  hi Comment      gui=italic guifg=#80a0ff
+  hi Comment      gui=italic ctermfg=Blue guifg=#80a0ff
   hi Constant     gui=NONE guifg=Goldenrod1 guibg=NONE
   hi Cursor       guibg=LightGoldenrod guifg=bg
   hi CursorColumn guibg=Gray20
@@ -131,4 +131,3 @@ if has("gui_macvim") && !exists("s:augroups_defined")
   let s:augroups_defined = 1
 endif
 
-" vim: sw=2
