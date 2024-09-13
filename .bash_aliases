@@ -21,3 +21,6 @@ alias longdao='sdcv -n -u "朗道英漢字典5.0"'
 alias longman='sdcv -n -u "Longman Dictionary of Contemporary English"'
 alias oxford='sdcv -n -u "牛津現代英漢雙解詞典"'
 
+# For TL10 power supply
+alias tl10_on='~/scripts/pdu2_port1_on.sh&&~/scripts/pdu1_port5_on.sh'
+alias tl10_off='~/scripts/pdu2_port1_off.sh&&~/scripts/pdu1_port5_off.sh'

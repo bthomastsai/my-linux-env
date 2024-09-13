@@ -94,9 +94,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-#if [ "$TERM" != "xterm-256color" ]; then
-#    export TERM=xterm-256color
-#fi
+if [ "$TERM" != "xterm-256color" ]; then
+    export TERM=xterm-256color
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -185,3 +185,8 @@ export LC_ALL="en_US.UTF-8"
 #export GTAGSLABEL=ctags-exuberant
 #export GTAGSLABEL=pygments
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=$PATH:~/.local/bin
